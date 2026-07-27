@@ -1,0 +1,51 @@
+default :
+  operator :
+    name : "CP"
+  output :
+    filename : "02_BC_EWB_CW_PR_0m-10m_2010-2010"
+  #-----------------------------
+  # SOURCE INFORMATION
+  #-------------------------
+  sources :
+    - src_short_name : "BEACON_CMEMS_BGC"
+      raw_data :
+        flag : 1
+        reader_type : "BEACON_PARQUET"
+        data_dir : "EUTRO_CMEMS"
+      trustlevel : 1
+
+    - src_short_name : "BEACON_EC"
+      raw_data :
+        flag : 1
+        reader_type : "BEACON_PARQUET"
+        data_dir : "EUTRO_EC"
+      trustlevel : 2
+
+    - src_short_name : "BEACON_WOD"
+      raw_data :
+        flag : 1
+        reader_type : "BEACON_PARQUET"
+        data_dir : "EUTRO_WOD"
+      trustlevel : 3
+
+  #--------------------------
+  #DATA SELECTION
+  #------------------------------
+  data_sel :
+    - region : NULL
+    - instr : NULL
+    - groupParam : NULL
+    - dataType : ["TRP", "PR", "TSP"]
+    - period : NULL
+  dupli_def :
+    time_unit : "minutes"
+    time_diff : 15
+    pos_diff : 15
+    instr_option : 2
+    src_option : 2
+    aggr_option : 4
+    graph_flag : 1
+  removal :
+    flag : 1
+    group : 0
+    rules_to_apply : [2,3,4,5]
