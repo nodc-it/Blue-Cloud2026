@@ -1,0 +1,520 @@
+input:
+  filepath:
+    - input/EUTRO_CMEMS/*.parquet
+    - input/EUTRO_EC/*.parquet
+    - input/EUTRO_WOD/*.parquet
+    - input/**/*.parquet
+
+
+process:
+  - function: cwdt_duplicate
+    listing_filepath: external/out/duplicate_listing/*EWB*.csv
+    discarded_filepath: external/out/duplicate_discarded/*EWB*.csv
+    latitude_column: LATITUDE
+    longitude_column: LONGITUDE
+    time_column: TIME
+
+  - function: cwdt_version
+    log_filepath: external/log/*.log
+
+  - function: fileforge_version
+
+
+output:
+  file:
+    filepath:
+    - output/wb2_cmems.parquet
+    - output/wb2_emodnet.parquet
+    - output/wb2_wod.parquet
+    - output/wb2_merged.parquet
+    filetype: parquet
+
+  general_metadata:
+    - CWDT_VERSION: "{cwdt_software_version}"
+    - FILEFORGE_VERSION: "{fileforge_software_version}"
+
+    - creators:
+      - name: "Nydia Catalina Reyes Suarez"
+        email: nreyessuarez@ogs.it
+        identifier: https://orcid.org/0000-0002-3906-471X
+      - name: Alessandra GIORGETTI
+        email: agiorgetti@ogs.it
+        identifier: https://orcid.org/0000-0002-0914-4831
+      - name: "Athanasia (Sissy) Iona"
+        email: sissy@hnodc.hcmr.gr
+        identifier: https://orcid.org/0000-0001-6878-4671
+      - name: Julie Gatti
+        email: julie.gatti@ifremer.fr
+        identifier: https://orcid.org/0000-0001-9327-4366
+      - name: Karin Wesslander
+        email: Karin.Wesslander@smhi.se
+      - name: Megan Anne French
+        email: mfrench@ogs.it
+        identifier: https://orcid.org/0000-0002-5837-1360
+      - name: Lotta Fyrberg
+        email: Lotta.Fyrberg@smhi.se
+      - name: "Gwenaëlle Moncoiffé"
+        email: gmon@noc.ac.uk
+        identifier: https://orcid.org/0000-0001-6559-4178
+      - name: "Robin Kooyman"
+        email: robin@maris.nl
+        identifier: https://orcid.org/0000-0002-1354-3114
+      - name: "Virginie Racapé"
+        email: virginie.racape@pokapok.org
+        identifier: https://orcid.org/0000-0003-0239-5125
+      - name: "Alban Sizun"
+        email: alban.sizun@pokapok.org
+        identifier: https://orcid.org/0009-0006-9387-3709
+      - name: "Maxence Couppey"
+        email: maxence.couppey@ifremer.fr
+        identifier: https://orcid.org/0009-0005-3985-3400
+      - name: "Sebastian Mieruch"
+        email: sebastian.mieruch@awi.de
+        identifier: https://orcid.org/0000-0003-1150-221X
+
+    # ----------------------------
+    # TO BE DEFINED
+    # ----------------------------
+    - url: ""
+    - content_url: ""
+    - published_date: ""
+    - dataset_name: "WB2_Harmonized_Oceanographic_Dataset"
+    - dataset_description: "Harmonized oceanographic observations including temperature, salinity, ammonium, chlorophyll, nitrate, nitrate & nitrite, oxygen, phosphate, silicate, depth, depth, position and quality control information."
+
+  data:
+    - input_col_name: SOURCE_BDI
+      output_col_name: source_bdi
+
+    - input_col_name: SOURCE_BDI_DATASET_ID
+      output_col_name: source_bdi_dataset_id
+
+    - input_col_name: COMMON_HARMONIZATION_DATE
+      output_col_name: bdi_harmonization_date
+
+    - input_col_name: COMMON_BDI_SNAPSHOT_DATE
+      output_col_name: bdi_snapshot_date
+
+    - input_col_name: COMMON_BDI_MONOLITH_VERSION
+      output_col_name: bdi_monolith_version
+
+    - input_col_name: EDMO_CODE
+      output_col_name: edmo_code
+      metadata:
+      - property: https://edmo.seadatanet.org/
+
+    - input_col_name: FEATURE_TYPE
+      output_col_name: feature_type
+
+    - input_col_name: CSR
+      output_col_name: csr
+
+    - input_col_name: BIGRAM
+      output_col_name: bigram
+
+    - input_col_name: PLATFORM_L06
+      output_col_name: platform_L06
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L06/current/
+        - type: "sosa:Platform"
+
+    - input_col_name: PLATFORM_C17
+      output_col_name: platform_C17
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/C17/current/
+        - type: "sosa:Platform"
+
+    # -------------------------------------------------------
+
+    - input_col_name: TIME
+      output_col_name: time
+
+    # -------------------------------------------------------
+
+    - input_col_name: LONGITUDE
+      output_col_name: longitude
+      units: degrees_east
+      metadata:
+        - property:
+          - "SDN:P01::ALONZZ01"
+          - "SDN:P06::DEGE"
+
+    - input_col_name: LATITUDE
+      output_col_name: latitude
+      units: degrees_north
+      metadata:
+        - property:
+          - "SDN:P01::ALATZZ01"
+          - "SDN:P06::DEGN"
+
+    # -------------------------------------------------------
+
+    - input_col_name: TEMPERATURE_L05
+      output_col_name: temperature_L05
+      depends_on: temperature
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: TEMPERATURE_L22
+      output_col_name: temperature_L22
+      depends_on: temperature
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: TEMPERATURE_L33
+      output_col_name: temperature_L33
+      depends_on: temperature
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: SALINITY_L05
+      output_col_name: salinity_L05
+      depends_on: salinity
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: SALINITY_L22
+      output_col_name: salinity_L22
+      depends_on: salinity
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: SALINITY_L33
+      output_col_name: salinity_L33
+      depends_on: salinity
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: AMMONIUM_L05
+      output_col_name: ammonium_L05
+      depends_on: ammonium
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: AMMONIUM_L22
+      output_col_name: ammonium_L22
+      depends_on: ammonium
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: AMMONIUM_L33
+      output_col_name: ammonium_L33
+      depends_on: ammonium
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: CHLOROPHYLL_L05
+      output_col_name: chlorophyll_L05
+      depends_on: chlorophyll
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: CHLOROPHYLL_L22
+      output_col_name: chlorophyll_L22
+      depends_on: chlorophyll
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: CHLOROPHYLL_L33
+      output_col_name: chlorophyll_L33
+      depends_on: chlorophyll
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: NITRATE_L05
+      output_col_name: nitrate_L05
+      depends_on: nitrate
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: NITRATE_L22
+      output_col_name: nitrate_L22
+      depends_on: nitrate
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: NITRATE_L33
+      output_col_name: nitrate_L33
+      depends_on: nitrate
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: NITRATE_NITRITE_L05
+      output_col_name: nitrate_nitrite_L05
+      depends_on: nitrate_nitrite
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: NITRATE_NITRITE_L22
+      output_col_name: nitrate_nitrite_L22
+      depends_on: nitrate_nitrite
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: NITRATE_NITRITE_L33
+      output_col_name: nitrate_nitrite_L33
+      depends_on: nitrate_nitrite
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: OXYGEN_L05
+      output_col_name: oxygen_L05
+      depends_on: oxygen
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: OXYGEN_L22
+      output_col_name: oxygen_L22
+      depends_on: oxygen
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: OXYGEN_L33
+      output_col_name: oxygen_L33
+      depends_on: oxygen
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: PHOSPHATE_L05
+      output_col_name: phosphate_L05
+      depends_on: phosphate
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: PHOSPHATE_L22
+      output_col_name: phosphate_L22
+      depends_on: phosphate
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: PHOSPHATE_L33
+      output_col_name: phosphate_L33
+      depends_on: phosphate
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: SILICATE_L05
+      output_col_name: silicate_L05
+      depends_on: silicate
+      metadata:
+        - property: http://vocab.nerc.ac.uk/collection/L05/current/
+
+    - input_col_name: SILICATE_L22
+      output_col_name: silicate_L22
+      depends_on: silicate
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L22/current/
+
+    - input_col_name: SILICATE_L33
+      output_col_name: silicate_L33
+      depends_on: silicate
+      metadata:
+        - type: 'sosa:Sensor'
+        - property: http://vocab.nerc.ac.uk/collection/L33/current/
+
+    # -------------------------------------------------------
+
+    - input_col_name: ind_dbl
+      output_col_name: duplicate_group_number
+      metadata: "Groups records identified as duplicates by CW Duplicate tool version:{cwdt_software_version}. Records with the same non-zero value in this column are considered duplicates to each other."
+
+    - input_col_name: rule_number
+      output_col_name: discarded_rule_number
+      metadata: "Indicates the rule that led to the discarding of a record by CW Duplicate tool version:{cwdt_software_version}. Value `0` means that the record has not been discarded, any other values integer corresponds to a specific rule defined in CW Duplicate tool (see: https://docs.google.com/document/d/11FcmVJXJiITkRuZV_x5PxXTNr8tmTNQa30j8Y_BaBB8#heading=h.40iud7sejgcz)."
+
+    # ----------------- #
+    #   Data Variable   #
+    # ----------------- #
+
+    # ------------------
+    # Depth
+    # ------------------
+
+    - input_col_name: DEPTH
+      output_col_name: depth
+      units: m
+      metadata:
+        - property:
+            - "{DEPTH_P01}"
+            - "{DEPTH_P06}"
+
+    - input_col_name: DEPTH_QC
+      output_col_name: depth_qc
+      qc_flag_schema: SEADATANET
+      depends_on: depth
+
+    # ------------------
+    # Temperature
+    # ------------------
+
+    - input_col_name: TEMPERATURE
+      output_col_name: temperature
+      units: degrees C
+      metadata:
+        - property: "{TEMPERATURE_P01}"
+        - property: "{TEMPERATURE_P06}"
+
+    - input_col_name: TEMPERATURE_QC
+      output_col_name: temperature_qc
+      qc_flag_schema: SEADATANET
+      depends_on: temperature
+
+    # ------------------
+    # Salinity
+    # ------------------
+
+    - input_col_name: SALINITY
+      output_col_name: salinity
+      units: dimensionless
+      metadata:
+        - property: "{SALINITY_P01}"
+        - property: "{SALINITY_P06}"
+
+    - input_col_name: SALINITY_QC
+      output_col_name: salinity_qc
+      qc_flag_schema: SEADATANET
+      depends_on: salinity
+
+    # ------------------
+    # Ammonium
+    # ------------------
+
+    - input_col_name: AMMONIUM_PER_VOLUME
+      output_col_name: ammonium
+      units: umol/l
+      metadata:
+        - property: "{AMMONIUM_PER_VOLUME_P01}"
+        - property: "{AMMONIUM_PER_VOLUME_P06}"
+
+    - input_col_name: AMMONIUM_PER_VOLUME_QC
+      output_col_name: ammonium_qc
+      qc_flag_schema: SEADATANET
+      depends_on: ammonium
+
+    # ------------------
+    # Chlorophyll
+    # ------------------
+
+    - input_col_name: CHLOROPHYLL_PER_VOLUME
+      output_col_name: chlorophyll
+      units: mg/m^3
+      metadata:
+        - property: "{CHLOROPHYLL_PER_VOLUME_P01}"
+        - property: "{CHLOROPHYLL_PER_VOLUME_P06}"
+
+    - input_col_name: CHLOROPHYLL_PER_VOLUME_QC
+      output_col_name: chlorophyll_qc
+      qc_flag_schema: SEADATANET
+      depends_on: chlorophyll
+
+    # ------------------
+    # Nitrate
+    # ------------------
+
+    - input_col_name: NITRATE_PER_VOLUME
+      output_col_name: nitrate
+      units: umol/l
+      metadata:
+        - property: "{NITRATE_PER_VOLUME_P01}"
+        - property: "{NITRATE_PER_VOLUME_P06}"
+
+    - input_col_name: NITRATE_PER_VOLUME_QC
+      output_col_name: nitrate_qc
+      qc_flag_schema: SEADATANET
+      depends_on: nitrate
+
+    # ------------------
+    # Nitrate Nitrite
+    # ------------------
+
+    - input_col_name: NITRATE_NITRITE_PER_VOLUME
+      output_col_name: nitrate_nitrite
+      units: umol/l
+      metadata:
+        - property: "{NITRATE_NITRITE_PER_VOLUME_P01}"
+        - property: "{NITRATE_NITRITE_PER_VOLUME_P06}"
+
+    - input_col_name: NITRATE_NITRITE_PER_VOLUME_QC
+      output_col_name: nitrate_nitrite_qc
+      qc_flag_schema: SEADATANET
+      depends_on: nitrate_nitrite
+
+    # ------------------
+    # Oxygen
+    # ------------------
+
+    - input_col_name: OXYGEN_PER_VOLUME
+      output_col_name: oxygen
+      units: umol/l
+      metadata:
+        - property: "{OXYGEN_PER_VOLUME_P01}"
+        - property: "{OXYGEN_PER_VOLUME_P06}"
+
+    - input_col_name: OXYGEN_PER_VOLUME_QC
+      output_col_name: oxygen_qc
+      qc_flag_schema: SEADATANET
+      depends_on: oxygen
+
+    # ------------------
+    # Phosphate
+    # ------------------
+
+    - input_col_name: PHOSPHATE_PER_VOLUME
+      output_col_name: phosphate
+      units: umol/l
+      metadata:
+        - property: "{PHOSPHATE_PER_VOLUME_P01}"
+        - property: "{PHOSPHATE_PER_VOLUME_P06}"
+
+    - input_col_name: PHOSPHATE_PER_VOLUME_QC
+      output_col_name: phosphate_qc
+      qc_flag_schema: SEADATANET
+      depends_on: phosphate
+
+    # ------------------
+    # Silicate
+    # ------------------
+
+    - input_col_name: SILICATE_PER_VOLUME
+      output_col_name: silicate
+      units: umol/l
+      metadata:
+        - property: "{SILICATE_PER_VOLUME_P01}"
+        - property: "{SILICATE_PER_VOLUME_P06}"
+
+    - input_col_name: SILICATE_PER_VOLUME_QC
+      output_col_name: silicate_qc
+      qc_flag_schema: SEADATANET
+      depends_on: silicate

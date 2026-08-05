@@ -1,0 +1,276 @@
+input:
+  filepath:
+    - input/EUTRO_CMEMS/*.parquet
+    - input/EUTRO_EC/*.parquet
+    - input/EUTRO_WOD/*.parquet
+    - input/**/*.parquet
+
+
+process:
+  - function: clonewars_duplicate
+    listing_filepath: external/out/duplicate_listing/*EWB*.csv
+    discarded_filepath: external/out/duplicate_discarded/*EWB*.csv
+    latitude_column: LATITUDE
+    longitude_column: LONGITUDE
+    time_column: TIME
+
+  - function: clonewars_version
+    log_filepath: external/log/*.log
+
+  - function: fileforge_version
+
+  - function: filter_on
+    columns: rule_number
+    values: 0
+
+output:
+  file:
+    filepath:
+    - output/wb2_cmems.parquet
+    - output/wb2_emodnet.parquet
+    - output/wb2_wod.parquet
+    - output/wb2_merged.parquet
+    filetype: parquet
+
+  general_metadata:
+    - clonewars_version: '{clonewars_software_version}'
+    - fileforge_version: '{fileforge_software_version}'
+
+  data:
+    - input_col_name: SOURCE_BDI
+      output_col_name: source_bdi
+
+    - input_col_name: SOURCE_BDI_DATASET_ID
+      output_col_name: source_bdi_dataset_id
+
+    - input_col_name: COMMON_BDI_HARMONIZATION_DATE
+      output_col_name: bdi_harmonization_date
+
+    - input_col_name: COMMON_BDI_SNAPSHOT_DATE
+      output_col_name: bdi_snapshot_date
+
+    - input_col_name: COMMON_BDI_MONOLITH_VERSION
+      output_col_name: bdi_monolith_version
+
+    - input_col_name: EDMO_CODE
+      output_col_name: edmo_code
+
+    - input_col_name: FEATURE_TYPE
+      output_col_name: feature_type
+
+    - input_col_name: CSR
+      output_col_name: csr
+
+    - input_col_name: BIGRAM
+      output_col_name: bigram
+
+    - input_col_name: PLATFORM_L06
+      output_col_name: platform_L06
+
+    - input_col_name: PLATFORM_C17
+      output_col_name: platform_C17
+
+    - input_col_name: TIME
+      output_col_name: time
+
+    - input_col_name: LONGITUDE
+      output_col_name: longitude
+      units: degrees_east
+      metadata: "Codes: SDN:P01::ALONZZ01 SDN:P06::DEGE"
+
+    - input_col_name: LATITUDE
+      output_col_name: latitude
+      units: degrees_north
+      metadata: "Codes: SDN:P01::ALATZZ01 SDN:P06::DEGN"
+
+    - input_col_name: TEMPERATURE_L05
+      output_col_name: temperature_L05
+    - input_col_name: TEMPERATURE_L22
+      output_col_name: temperature_L22
+    - input_col_name: TEMPERATURE_L33
+      output_col_name: temperature_L33
+
+    - input_col_name: SALINITY_L05
+      output_col_name: salinity_L05
+    - input_col_name: SALINITY_L22
+      output_col_name: salinity_L22
+    - input_col_name: SALINITY_L33
+      output_col_name: salinity_L33
+
+    - input_col_name: AMMONIUM_L05
+      output_col_name: ammonium_L05
+    - input_col_name: AMMONIUM_L22
+      output_col_name: ammonium_L22
+    - input_col_name: AMMONIUM_L33
+      output_col_name: ammonium_L33
+
+    - input_col_name: CHLOROPHYLL_L05
+      output_col_name: chlorophyll_L05
+    - input_col_name: CHLOROPHYLL_L22
+      output_col_name: chlorophyll_L22
+    - input_col_name: CHLOROPHYLL_L33
+      output_col_name: chlorophyll_L33
+
+    - input_col_name: NITRATE_L05
+      output_col_name: nitrate_L05
+    - input_col_name: NITRATE_L22
+      output_col_name: nitrate_L22
+    - input_col_name: NITRATE_L33
+      output_col_name: nitrate_L33
+
+    - input_col_name: NITRATE_NITRITE_L05
+      output_col_name: nitrate_nitrite_L05
+    - input_col_name: NITRATE_NITRITE_L22
+      output_col_name: nitrate_nitrite_L22
+    - input_col_name: NITRATE_NITRITE_L33
+      output_col_name: nitrate_nitrite_L33
+
+    - input_col_name: OXYGEN_L05
+      output_col_name: oxygen_L05
+    - input_col_name: OXYGEN_L22
+      output_col_name: oxygen_L22
+    - input_col_name: OXYGEN_L33
+      output_col_name: oxygen_L33
+
+    - input_col_name: PHOSPHATE_L05
+      output_col_name: phosphate_L05
+    - input_col_name: PHOSPHATE_L22
+      output_col_name: phosphate_L22
+    - input_col_name: PHOSPHATE_L33
+      output_col_name: phosphate_L33
+
+    - input_col_name: SILICATE_L05
+      output_col_name: silicate_L05
+    - input_col_name: SILICATE_L22
+      output_col_name: silicate_L22
+    - input_col_name: SILICATE_L33
+      output_col_name: silicate_L33
+
+    - input_col_name: ind_dbl
+      output_col_name: duplicate_group_number
+      metadata: "Groups records identified as duplicates by CloneWars version:{clonewars_software_version}. Records with the same non-zero value in this column are considered duplicates to each other."
+
+    # ----------------- #
+    #   Data Variable   #
+    # ----------------- #
+
+    # ------------------
+    # Depth
+    # ------------------
+
+    - input_col_name: DEPTH
+      output_col_name: depth
+      units: m
+      metadata: "Codes: {DEPTH_P01} {DEPTH_P06}"
+      is_primary_variable: True
+
+    - input_col_name: DEPTH_QC
+      output_col_name: depth_qc
+
+    # ------------------
+    # Temperature
+    # ------------------
+
+    - input_col_name: TEMPERATURE
+      output_col_name: temperature
+      units: degrees C
+      metadata: "Codes: {TEMPERATURE_P01} {TEMPERATURE_P06}"
+
+    - input_col_name: TEMPERATURE_QC
+      output_col_name: temperature_qc
+
+    # ------------------
+    # Salinity
+    # ------------------
+
+    - input_col_name: SALINITY
+      output_col_name: salinity
+      units: dimensionless
+      metadata: "Codes: {SALINITY_P01} {SALINITY_P06}"
+
+    - input_col_name: SALINITY_QC
+      output_col_name: salinity_qc
+
+    # ------------------
+    # Ammonium
+    # ------------------
+
+    - input_col_name: AMMONIUM_PER_VOLUME
+      output_col_name: ammonium
+      units: umol/l
+      metadata: "Codes: {AMMONIUM_PER_VOLUME_P01} {AMMONIUM_PER_VOLUME_P06}"
+
+    - input_col_name: AMMONIUM_PER_VOLUME_QC
+      output_col_name: ammonium_qc
+
+    # ------------------
+    # Chlorophyll
+    # ------------------
+
+    - input_col_name: CHLOROPHYLL_PER_VOLUME
+      output_col_name: chlorophyll
+      units: mg/m^3
+      metadata: "Codes: {CHLOROPHYLL_PER_VOLUME_P01} {CHLOROPHYLL_PER_VOLUME_P06}"
+
+    - input_col_name: CHLOROPHYLL_PER_VOLUME_QC
+      output_col_name: chlorophyll_qc
+
+    # ------------------
+    # Nitrate
+    # ------------------
+
+    - input_col_name: NITRATE_PER_VOLUME
+      output_col_name: nitrate
+      units: umol/l
+      metadata: "Codes: {NITRATE_PER_VOLUME_P01} {NITRATE_PER_VOLUME_P06}"
+
+    - input_col_name: NITRATE_PER_VOLUME_QC
+      output_col_name: nitrate_qc
+
+    # ------------------
+    # Nitrate Nitrite
+    # ------------------
+
+    - input_col_name: NITRATE_NITRITE_PER_VOLUME
+      output_col_name: nitrate_nitrite
+      units: umol/l
+      metadata: "Codes: {NITRATE_NITRITE_PER_VOLUME_P01} {NITRATE_NITRITE_PER_VOLUME_P06}"
+
+    - input_col_name: NITRATE_NITRITE_PER_VOLUME_QC
+      output_col_name: nitrate_nitrite_qc
+
+    # ------------------
+    # Oxygen
+    # ------------------
+
+    - input_col_name: OXYGEN_PER_VOLUME
+      output_col_name: oxygen
+      units: umol/l
+      metadata: "Codes: {OXYGEN_PER_VOLUME_P01} {OXYGEN_PER_VOLUME_P06}"
+
+    - input_col_name: OXYGEN_PER_VOLUME_QC
+      output_col_name: oxygen_qc
+
+    # ------------------
+    # Phosphate
+    # ------------------
+
+    - input_col_name: PHOSPHATE_PER_VOLUME
+      output_col_name: phosphate
+      units: umol/l
+      metadata: "Codes: {PHOSPHATE_PER_VOLUME_P01} {PHOSPHATE_PER_VOLUME_P06}"
+
+    - input_col_name: PHOSPHATE_PER_VOLUME_QC
+      output_col_name: phosphate_qc
+
+    # ------------------
+    # Silicate
+    # ------------------
+
+    - input_col_name: SILICATE_PER_VOLUME
+      output_col_name: silicate
+      units: umol/l
+      metadata: "Codes: {SILICATE_PER_VOLUME_P01} {SILICATE_PER_VOLUME_P06}"
+
+    - input_col_name: SILICATE_PER_VOLUME_QC
+      output_col_name: silicate_qc

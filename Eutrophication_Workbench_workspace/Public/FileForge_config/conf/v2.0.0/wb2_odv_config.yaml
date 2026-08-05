@@ -1,0 +1,340 @@
+input:
+  filepath:
+    - input/EUTRO_CMEMS/*.parquet
+    - input/EUTRO_EC/*.parquet
+    - input/EUTRO_WOD/*.parquet
+    - input/**/*.parquet
+
+
+process:
+  - function: cwdt_duplicate
+    listing_filepath: external/out/duplicate_listing/*EWB*.csv
+    discarded_filepath: external/out/duplicate_discarded/*EWB*.csv
+    latitude_column: LATITUDE
+    longitude_column: LONGITUDE
+    time_column: TIME
+
+  - function: polars_add_static_value
+    column_name: type
+    value: "*"
+
+  - function: odv_unique_station
+    columns:
+      - SOURCE_BDI_DATASET_ID
+      - LATITUDE
+      - LONGITUDE
+      - TIME
+    separator: "-_-"
+    output_col_name: odv_station
+
+  - function: cwdt_version
+    log_filepath: external/log/*.log
+
+  - function: fileforge_version
+
+
+output:
+  file:
+    filepath:
+    - output/wb2_cmems.txt
+    - output/wb2_emodnet.txt
+    - output/wb2_wod.txt
+    - output/wb2_merged.txt
+    filetype: odv_spreadsheet
+
+  data:
+    - input_col_name: ODV_TAG
+      output_col_name: Cruise
+      var_type: METACRUISE
+      is_meta_variable: True
+
+    - input_col_name: odv_station
+      output_col_name: Station
+      var_type: METASTATION
+      is_meta_variable: True
+
+    - input_col_name: SOURCE_BDI
+      output_col_name: Source BDI
+      is_meta_variable: True
+
+    - input_col_name: SOURCE_BDI_DATASET_ID
+      output_col_name: Source Dataset ID
+      is_meta_variable: True
+
+    - input_col_name: COMMON_HARMONIZATION_DATE
+      output_col_name: BDI Harmonization Date
+      is_meta_variable: True
+
+    - input_col_name: COMMON_BDI_SNAPSHOT_DATE
+      output_col_name: BDI Snapshot Date
+      is_meta_variable: True
+
+    - input_col_name: COMMON_BDI_MONOLITH_VERSION
+      output_col_name: BDI Monolith Versions
+      is_meta_variable: True
+
+    - input_col_name: fileforge_software_version
+      output_col_name: FileForge software version
+      is_meta_variable: True
+
+    - input_col_name: EDMO_CODE
+      output_col_name: EDMO_code
+      is_meta_variable: True
+
+    - input_col_name: FEATURE_TYPE
+      output_col_name: Feature type
+      is_meta_variable: True
+
+    - input_col_name: CSR
+      output_col_name: CSR
+      is_meta_variable: True
+
+    - input_col_name: BIGRAM
+      output_col_name: BIGRAM
+      is_meta_variable: True
+
+    - input_col_name: type
+      output_col_name: Type
+      var_type: METATYPE
+      is_meta_variable: True
+
+    - input_col_name: PLATFORM_L06
+      output_col_name: Platform L06
+      is_meta_variable: True
+
+    - input_col_name: PLATFORM_C17
+      output_col_name: Platform C17
+      is_meta_variable: True
+
+    - input_col_name: TIME
+      output_col_name: yyyy-mm-ddThh:mm:ss.sss
+      is_meta_variable: True
+
+    - input_col_name: LONGITUDE
+      output_col_name: Longitude
+      units: degrees_east
+      metadata: "Codes: SDN:P01::ALONZZ01 SDN:P06::DEGE"
+      var_type: METALONGITUDE
+      is_meta_variable: True
+
+    - input_col_name: LATITUDE
+      output_col_name: Latitude
+      units: degrees_north
+      metadata: "Codes: SDN:P01::ALATZZ01 SDN:P06::DEGN"
+      var_type: METALATITUDE
+      is_meta_variable: True
+
+    - input_col_name: TEMPERATURE_L05
+      output_col_name: Temperature L05
+      is_meta_variable: True
+    - input_col_name: TEMPERATURE_L22
+      output_col_name: Temperature L22
+      is_meta_variable: True
+    - input_col_name: TEMPERATURE_L33
+      output_col_name: Temperature L33
+      is_meta_variable: True
+
+    - input_col_name: SALINITY_L05
+      output_col_name: Salinity L05
+      is_meta_variable: True
+    - input_col_name: SALINITY_L22
+      output_col_name: Salinity L22
+      is_meta_variable: True
+    - input_col_name: SALINITY_L33
+      output_col_name: Salinity L33
+      is_meta_variable: True
+
+    - input_col_name: AMMONIUM_L05
+      output_col_name: Ammonium L05
+      is_meta_variable: True
+    - input_col_name: AMMONIUM_L22
+      output_col_name: Ammonium L22
+      is_meta_variable: True
+    - input_col_name: AMMONIUM_L33
+      output_col_name: Ammonium L33
+      is_meta_variable: True
+
+    - input_col_name: CHLOROPHYLL_L05
+      output_col_name: Chlorophyll L05
+      is_meta_variable: True
+    - input_col_name: CHLOROPHYLL_L22
+      output_col_name: Chlorophyll L22
+      is_meta_variable: True
+    - input_col_name: CHLOROPHYLL_L33
+      output_col_name: Chlorophyll L33
+      is_meta_variable: True
+
+    - input_col_name: NITRATE_L05
+      output_col_name: Nitrate L05
+      is_meta_variable: True
+    - input_col_name: NITRATE_L22
+      output_col_name: Nitrate L22
+      is_meta_variable: True
+    - input_col_name: NITRATE_L33
+      output_col_name: Nitrate L33
+      is_meta_variable: True
+
+    - input_col_name: NITRATE_NITRITE_L05
+      output_col_name: Nitrate plus Nitrite L05
+      is_meta_variable: True
+    - input_col_name: NITRATE_NITRITE_L22
+      output_col_name: Nitrate plus Nitrite L22
+      is_meta_variable: True
+    - input_col_name: NITRATE_NITRITE_L33
+      output_col_name: Nitrate plus Nitrite L33
+      is_meta_variable: True
+
+    - input_col_name: OXYGEN_L05
+      output_col_name: Oxygen L05
+      is_meta_variable: True
+    - input_col_name: OXYGEN_L22
+      output_col_name: Oxygen L22
+      is_meta_variable: True
+    - input_col_name: OXYGEN_L33
+      output_col_name: Oxygen L33
+      is_meta_variable: True
+
+    - input_col_name: PHOSPHATE_L05
+      output_col_name: Phosphate L05
+      is_meta_variable: True
+    - input_col_name: PHOSPHATE_L22
+      output_col_name: Phosphate L22
+      is_meta_variable: True
+    - input_col_name: PHOSPHATE_L33
+      output_col_name: Phosphate L33
+      is_meta_variable: True
+
+    - input_col_name: SILICATE_L05
+      output_col_name: Silicate L05
+      is_meta_variable: True
+    - input_col_name: SILICATE_L22
+      output_col_name: Silicate L22
+      is_meta_variable: True
+    - input_col_name: SILICATE_L33
+      output_col_name: Silicate L33
+      is_meta_variable: True
+
+    - input_col_name: ind_dbl
+      output_col_name: Duplicate group number
+      metadata: "Groups records identified as duplicates by CW Duplicate tool version:{cwdt_software_version}. Records with the same non-zero value in this column are considered duplicates to each other."
+      is_meta_variable: True
+
+    - input_col_name: rule_number
+      output_col_name: Discarded rule number
+      metadata: "Indicates the rule that led to the discarding of a record by CW Duplicate tool version:{cwdt_software_version}. Value `0` means that the record has not been discarded, any other values integer corresponds to a specific rule defined in CW Duplicate tool (see: https://docs.google.com/document/d/11FcmVJXJiITkRuZV_x5PxXTNr8tmTNQa30j8Y_BaBB8#heading=h.40iud7sejgcz)."
+      is_meta_variable: True
+
+    # ----------------- #
+    #   Data Variable   #
+    # ----------------- #
+
+    # ------------------
+    # Depth
+    # ------------------
+
+    - input_col_name: DEPTH
+      output_col_name: Depth
+      units: m
+      metadata: "Codes: {DEPTH_P01} {DEPTH_P06}"
+      qc_col_name: DEPTH_QC
+      qc_flag_schema: SEADATANET
+      is_primary_variable: True
+
+    # ------------------
+    # Temperature
+    # ------------------
+
+    - input_col_name: TEMPERATURE
+      output_col_name: ITS-90 water temperature
+      units: degrees C
+      metadata: "Codes: {TEMPERATURE_P01} {TEMPERATURE_P06}"
+      qc_col_name: TEMPERATURE_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Salinity
+    # ------------------
+
+    - input_col_name: SALINITY
+      output_col_name: Water body salinity
+      units: dimensionless
+      metadata: "Codes: {SALINITY_P01} {SALINITY_P06}"
+      qc_col_name: SALINITY_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Ammonium
+    # ------------------
+
+    - input_col_name: AMMONIUM_PER_VOLUME
+      output_col_name: Water body ammonium
+      units: umol/l
+      metadata: "Codes: {AMMONIUM_PER_VOLUME_P01} {AMMONIUM_PER_VOLUME_P06}"
+      qc_col_name: AMMONIUM_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Chlorophyll
+    # ------------------
+
+    - input_col_name: CHLOROPHYLL_PER_VOLUME
+      output_col_name: Water body chlorophyll concentration
+      units: mg/m^3
+      metadata: "Codes: {CHLOROPHYLL_PER_VOLUME_P01} {CHLOROPHYLL_PER_VOLUME_P06}"
+      qc_col_name: CHLOROPHYLL_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Nitrate
+    # ------------------
+
+    - input_col_name: NITRATE_PER_VOLUME
+      output_col_name: Water body nitrate
+      units: umol/l
+      metadata: "Codes: {NITRATE_PER_VOLUME_P01} {NITRATE_PER_VOLUME_P06}"
+      qc_col_name: NITRATE_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Nitrate Nitrite
+    # ------------------
+
+    - input_col_name: NITRATE_NITRITE_PER_VOLUME
+      output_col_name: Water body nitrate plus nitrite
+      units: umol/l
+      metadata: "Codes: {NITRATE_NITRITE_PER_VOLUME_P01} {NITRATE_NITRITE_PER_VOLUME_P06}"
+      qc_col_name: NITRATE_NITRITE_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Oxygen
+    # ------------------
+
+    - input_col_name: OXYGEN_PER_VOLUME
+      output_col_name: Water body dissolved oxygen
+      units: umol/l
+      metadata: "Codes: {OXYGEN_PER_VOLUME_P01} {OXYGEN_PER_VOLUME_P06}"
+      qc_col_name: OXYGEN_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Phosphate
+    # ------------------
+
+    - input_col_name: PHOSPHATE_PER_VOLUME
+      output_col_name: Water body phosphate
+      units: umol/l
+      metadata: "Codes: {PHOSPHATE_PER_VOLUME_P01} {PHOSPHATE_PER_VOLUME_P06}"
+      qc_col_name: PHOSPHATE_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET
+
+    # ------------------
+    # Silicate
+    # ------------------
+
+    - input_col_name: SILICATE_PER_VOLUME
+      output_col_name: Water body silicate
+      units: umol/l
+      metadata: "Codes: {SILICATE_PER_VOLUME_P01} {SILICATE_PER_VOLUME_P06}"
+      qc_col_name: SILICATE_PER_VOLUME_QC
+      qc_flag_schema: SEADATANET

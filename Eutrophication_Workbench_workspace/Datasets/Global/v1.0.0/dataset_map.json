@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "dataset_name": "Eutrophication Workbench Global Dataset",
+  "version": "1.0.0",
+  "release_date": "2026-08-04",
+  "variants": {
+    "aggregated_harmonized": {
+      "record_count": 1316427551,
+      "file_count": 1,
+      "subdirectories": [
+        "root"
+      ],
+      "files": [
+        {
+          "relative_path": "variants/aggregated_harmonized/BC_EWB_MERGED_PER_VOLUME_0m_to_10000m_19210101_to_20241231_v20260610_134528.parquet",
+          "record_count": 1316427551,
+          "size_bytes": 18867411028,
+          "checksum_sha256": "skipped_fast_mode"
+        }
+      ]
+    },
+    "annotated": {
+      "record_count": 0,
+      "file_count": 0,
+      "subdirectories": [
+        "root"
+      ],
+      "files": []
+    },
+    "deduplicated": {
+      "record_count": 0,
+      "file_count": 0,
+      "subdirectories": [
+        "root"
+      ],
+      "files": []
+    }
+  }
+}
