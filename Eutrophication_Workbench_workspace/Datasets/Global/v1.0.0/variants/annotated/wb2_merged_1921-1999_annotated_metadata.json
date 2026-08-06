@@ -1,0 +1,1585 @@
+{
+    "@context": {
+        "@language": "en",
+        "@vocab": "https://schema.org/",
+        "sc": "https://schema.org/",
+        "cr": "http://mlcommons.org/croissant/",
+        "rai": "http://mlcommons.org/croissant/RAI/",
+        "dct": "http://purl.org/dc/terms/",
+        "citeAs": "cr:citeAs",
+        "column": "cr:column",
+        "conformsTo": "dct:conformsTo",
+        "data": {
+            "@id": "cr:data",
+            "@type": "@json"
+        },
+        "dataType": {
+            "@id": "cr:dataType",
+            "@type": "@vocab"
+        },
+        "examples": {
+            "@id": "cr:examples",
+            "@type": "@json"
+        },
+        "extract": "cr:extract",
+        "field": "cr:field",
+        "fileProperty": "cr:fileProperty",
+        "fileObject": "cr:fileObject",
+        "fileSet": "cr:fileSet",
+        "format": "cr:format",
+        "includes": "cr:includes",
+        "isLiveDataset": "cr:isLiveDataset",
+        "jsonPath": "cr:jsonPath",
+        "key": "cr:key",
+        "md5": "cr:md5",
+        "parentField": "cr:parentField",
+        "path": "cr:path",
+        "recordSet": "cr:recordSet",
+        "references": "cr:references",
+        "regex": "cr:regex",
+        "repeated": "cr:repeated",
+        "replace": "cr:replace",
+        "separator": "cr:separator",
+        "source": "cr:source",
+        "subField": "cr:subField",
+        "transform": "cr:transform",
+        "samplingRate": "cr:samplingRate",
+        "sosa:Platform": "http://www.w3.org/ns/sosa/Platform",
+        "sosa:Sensor": "http://www.w3.org/ns/sosa/Sensor"
+    },
+    "@type": "Dataset",
+    "name": "WB2_Harmonized_Oceanographic_Dataset",
+    "version": "1.0",
+    "description": "Harmonized, standarzed and annotated duplicates from oceanographic observations including temperature, salinity, ammonium, chlorophyll, nitrate, nitrate & nitrite, oxygen, phosphate, silicate, depth, position and quality control information.",
+    "dct:conformsTo": "http://mlcommons.org/croissant/1.0",
+    "license": "https://spdx.org/licenses/CC-BY-4.0.html",
+    "url": "https://blue-cloud.d4science.org/group/eutrophication-workbench",
+    "datePublished": "",
+    "additionalProperty": [
+        {
+            "@type": "PropertyValue",
+            "name": "CWDT_VERSION",
+            "value": "v1.1"
+        },
+        {
+            "@type": "PropertyValue",
+            "name": "FILEFORGE_VERSION",
+            "value": "0.1.28"
+        }
+    ],
+    "distribution": [
+        {
+            "@type": "cr:FileObject",
+            "@id": "wb2_merged",
+            "name": "wb2_merged",
+            "contentUrl": "",
+            "encodingFormat": "application/x-parquet",
+            "sha256": "4b38ced9d165873c8d2db5fcf1c35d40d3583129dfbbd2bfa7fba6e36b27c80e"
+        }
+    ],
+    "recordSet": [
+        {
+            "@type": "cr:RecordSet",
+            "@id": "dataRecordSet",
+            "name": "OceanographicProfile",
+            "field": [
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/source_bdi",
+                    "name": "source_bdi",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "source_bdi"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/source_bdi_dataset_id",
+                    "name": "source_bdi_dataset_id",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "source_bdi_dataset_id"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/bdi_harmonization_date",
+                    "name": "bdi_harmonization_date",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "bdi_harmonization_date"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/bdi_snapshot_date",
+                    "name": "bdi_snapshot_date",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "bdi_snapshot_date"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/bdi_monolith_version",
+                    "name": "bdi_monolith_version",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "bdi_monolith_version"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/edmo_code",
+                    "name": "edmo_code",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "https://edmo.seadatanet.org/",
+                    "source": {
+                        "extract": {
+                            "column": "edmo_code"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/feature_type",
+                    "name": "feature_type",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "feature_type"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/csr",
+                    "name": "csr",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "csr"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/bigram",
+                    "name": "bigram",
+                    "dataType": "sc:Text",
+                    "source": {
+                        "extract": {
+                            "column": "bigram"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Platform"
+                    ],
+                    "@id": "dataRecordSet/platform_L06",
+                    "name": "platform_L06",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L06/current/",
+                    "source": {
+                        "extract": {
+                            "column": "platform_L06"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Platform"
+                    ],
+                    "@id": "dataRecordSet/platform_C17",
+                    "name": "platform_C17",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/C17/current/",
+                    "source": {
+                        "extract": {
+                            "column": "platform_C17"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/time",
+                    "name": "time",
+                    "dataType": "sc:DateTime",
+                    "source": {
+                        "extract": {
+                            "column": "time"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/longitude",
+                    "name": "longitude",
+                    "dataType": "sc:Float",
+                    "unitText": "degrees_east",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/ALONZZ01/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/DEGE/",
+                    "source": {
+                        "extract": {
+                            "column": "longitude"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/latitude",
+                    "name": "latitude",
+                    "dataType": "sc:Float",
+                    "unitText": "degrees_north",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/ALATZZ01/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/DEGN/",
+                    "source": {
+                        "extract": {
+                            "column": "latitude"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/temperature_L05",
+                    "name": "temperature_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/temperature"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "temperature_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/temperature_L22",
+                    "name": "temperature_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/temperature"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "temperature_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/temperature_L33",
+                    "name": "temperature_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/temperature"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "temperature_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/salinity_L05",
+                    "name": "salinity_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/salinity"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "salinity_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/salinity_L22",
+                    "name": "salinity_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/salinity"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "salinity_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/salinity_L33",
+                    "name": "salinity_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/salinity"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "salinity_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/ammonium_L05",
+                    "name": "ammonium_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/ammonium"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "ammonium_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/ammonium_L22",
+                    "name": "ammonium_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/ammonium"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "ammonium_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/ammonium_L33",
+                    "name": "ammonium_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/ammonium"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "ammonium_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/chlorophyll_L05",
+                    "name": "chlorophyll_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/chlorophyll"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "chlorophyll_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/chlorophyll_L22",
+                    "name": "chlorophyll_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/chlorophyll"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "chlorophyll_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/chlorophyll_L33",
+                    "name": "chlorophyll_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/chlorophyll"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "chlorophyll_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/nitrate_L05",
+                    "name": "nitrate_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/nitrate_L22",
+                    "name": "nitrate_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/nitrate_L33",
+                    "name": "nitrate_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/nitrate_nitrite_L05",
+                    "name": "nitrate_nitrite_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate_nitrite"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_nitrite_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/nitrate_nitrite_L22",
+                    "name": "nitrate_nitrite_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate_nitrite"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_nitrite_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/nitrate_nitrite_L33",
+                    "name": "nitrate_nitrite_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate_nitrite"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_nitrite_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/oxygen_L05",
+                    "name": "oxygen_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/oxygen"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "oxygen_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/oxygen_L22",
+                    "name": "oxygen_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/oxygen"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "oxygen_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/oxygen_L33",
+                    "name": "oxygen_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/oxygen"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "oxygen_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/phosphate_L05",
+                    "name": "phosphate_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/phosphate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "phosphate_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/phosphate_L22",
+                    "name": "phosphate_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/phosphate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "phosphate_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/phosphate_L33",
+                    "name": "phosphate_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/phosphate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "phosphate_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/silicate_L05",
+                    "name": "silicate_L05",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L05/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/silicate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "silicate_L05"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/silicate_L22",
+                    "name": "silicate_L22",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L22/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/silicate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "silicate_L22"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm",
+                        "sosa:Sensor"
+                    ],
+                    "@id": "dataRecordSet/silicate_L33",
+                    "name": "silicate_L33",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L33/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/silicate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "silicate_L33"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/duplicate_group_number",
+                    "name": "duplicate_group_number",
+                    "dataType": "sc:Integer",
+                    "source": {
+                        "extract": {
+                            "column": "duplicate_group_number"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/discarded_rule_number",
+                    "name": "discarded_rule_number",
+                    "dataType": "sc:Integer",
+                    "source": {
+                        "extract": {
+                            "column": "discarded_rule_number"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/depth",
+                    "name": "depth",
+                    "dataType": "sc:Float",
+                    "unitText": "m",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/ADEPZZ01/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/ULAA/",
+                    "source": {
+                        "extract": {
+                            "column": "depth"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/depth_qc",
+                    "name": "depth_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/depth"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "depth_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/temperature",
+                    "name": "temperature",
+                    "dataType": "sc:Float",
+                    "unitText": "degrees C",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/TEMPPR01/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPAA/",
+                    "source": {
+                        "extract": {
+                            "column": "temperature"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/temperature_qc",
+                    "name": "temperature_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/temperature"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "temperature_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/salinity",
+                    "name": "salinity",
+                    "dataType": "sc:Float",
+                    "unitText": "dimensionless",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/PSLTZZ01/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UUUU/",
+                    "source": {
+                        "extract": {
+                            "column": "salinity"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/salinity_qc",
+                    "name": "salinity_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/salinity"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "salinity_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/ammonium",
+                    "name": "ammonium",
+                    "dataType": "sc:Float",
+                    "unitText": "umol/l",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/AMONZZXX/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPOX/",
+                    "source": {
+                        "extract": {
+                            "column": "ammonium"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/ammonium_qc",
+                    "name": "ammonium_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/ammonium"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "ammonium_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/chlorophyll",
+                    "name": "chlorophyll",
+                    "dataType": "sc:Float",
+                    "unitText": "mg/m^3",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/CHLTVOLU/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UMMC/",
+                    "source": {
+                        "extract": {
+                            "column": "chlorophyll"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/chlorophyll_qc",
+                    "name": "chlorophyll_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/chlorophyll"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "chlorophyll_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/nitrate",
+                    "name": "nitrate",
+                    "dataType": "sc:Float",
+                    "unitText": "umol/l",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/NTRAZZXX/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPOX/",
+                    "source": {
+                        "extract": {
+                            "column": "nitrate"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/nitrate_qc",
+                    "name": "nitrate_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/nitrate_nitrite",
+                    "name": "nitrate_nitrite",
+                    "dataType": "sc:Float",
+                    "unitText": "umol/l",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/NTRZZZXX/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPOX/",
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_nitrite"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/nitrate_nitrite_qc",
+                    "name": "nitrate_nitrite_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/nitrate_nitrite"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "nitrate_nitrite_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/oxygen",
+                    "name": "oxygen",
+                    "dataType": "sc:Float",
+                    "unitText": "umol/l",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/DOXYZZXX/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPOX/",
+                    "source": {
+                        "extract": {
+                            "column": "oxygen"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/oxygen_qc",
+                    "name": "oxygen_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/oxygen"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "oxygen_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/phosphate",
+                    "name": "phosphate",
+                    "dataType": "sc:Float",
+                    "unitText": "umol/l",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/PHOSZZXX/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPOX/",
+                    "source": {
+                        "extract": {
+                            "column": "phosphate"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/phosphate_qc",
+                    "name": "phosphate_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/phosphate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "phosphate_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:PropertyValue"
+                    ],
+                    "@id": "dataRecordSet/silicate",
+                    "name": "silicate",
+                    "dataType": "sc:Float",
+                    "unitText": "umol/l",
+                    "propertyID": "http://vocab.nerc.ac.uk/collection/P01/current/SLCAZZXX/",
+                    "unitCode": "http://vocab.nerc.ac.uk/collection/P06/current/UPOX/",
+                    "source": {
+                        "extract": {
+                            "column": "silicate"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                },
+                {
+                    "@type": [
+                        "cr:Field",
+                        "sc:DefinedTerm"
+                    ],
+                    "@id": "dataRecordSet/silicate_qc",
+                    "name": "silicate_qc",
+                    "dataType": "sc:Text",
+                    "inDefinedTermSet": "http://vocab.nerc.ac.uk/collection/L20/current/",
+                    "references": {
+                        "field": {
+                            "@id": "dataRecordSet/silicate"
+                        }
+                    },
+                    "source": {
+                        "extract": {
+                            "column": "silicate_qc"
+                        },
+                        "fileObject": {
+                            "@id": "wb2_merged"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "creator": [
+        {
+            "@type": "Person",
+            "name": "Nydia Catalina Reyes Suarez",
+            "email": "nreyessuarez@ogs.it",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0002-3906-471X",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0002-3906-471X",
+                "value": "orcid:0000-0002-3906-471X"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Alessandra GIORGETTI",
+            "email": "agiorgetti@ogs.it",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0002-0914-4831",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0002-0914-4831",
+                "value": "orcid:0000-0002-0914-4831"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Athanasia (Sissy) Iona",
+            "email": "sissy@hnodc.hcmr.gr",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0001-6878-4671",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0001-6878-4671",
+                "value": "orcid:0000-0001-6878-4671"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Julie Gatti",
+            "email": "julie.gatti@ifremer.fr",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0001-9327-4366",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0001-9327-4366",
+                "value": "orcid:0000-0001-9327-4366"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Karin Wesslander",
+            "email": "Karin.Wesslander@smhi.se"
+        },
+        {
+            "@type": "Person",
+            "name": "Megan Anne French",
+            "email": "mfrench@ogs.it",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0002-5837-1360",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0002-5837-1360",
+                "value": "orcid:0000-0002-5837-1360"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Lotta Fyrberg",
+            "email": "Lotta.Fyrberg@smhi.se"
+        },
+        {
+            "@type": "Person",
+            "name": "Gwena\u00eblle Moncoiff\u00e9",
+            "email": "gmon@noc.ac.uk",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0001-6559-4178",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0001-6559-4178",
+                "value": "orcid:0000-0001-6559-4178"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Robin Kooyman",
+            "email": "robin@maris.nl",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0002-1354-3114",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0002-1354-3114",
+                "value": "orcid:0000-0002-1354-3114"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Virginie Racap\u00e9",
+            "email": "virginie.racape@pokapok.org",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0003-0239-5125",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0003-0239-5125",
+                "value": "orcid:0000-0003-0239-5125"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Alban Sizun",
+            "email": "alban.sizun@pokapok.org",
+            "identifier": {
+                "@id": "https://orcid.org/0009-0006-9387-3709",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0009-0006-9387-3709",
+                "value": "orcid:0009-0006-9387-3709"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Maxence Couppey",
+            "email": "maxence.couppey@ifremer.fr",
+            "identifier": {
+                "@id": "https://orcid.org/0009-0005-3985-3400",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0009-0005-3985-3400",
+                "value": "orcid:0009-0005-3985-3400"
+            }
+        },
+        {
+            "@type": "Person",
+            "name": "Sebastian Mieruch",
+            "email": "sebastian.mieruch@awi.de",
+            "identifier": {
+                "@id": "https://orcid.org/0000-0003-1150-221X",
+                "@type": "PropertyValue",
+                "propertyID": "https://registry.identifiers.org/registry/orcid",
+                "url": "https://orcid.org/0000-0003-1150-221X",
+                "value": "orcid:0000-0003-1150-221X"
+            }
+        }
+    ]
+}
