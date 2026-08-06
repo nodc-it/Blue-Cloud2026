@@ -1,170 +1,192 @@
 # Eutrophication Workbench (EWB)
 
-## Quick Start (for VRE users)
+## Quick Start
 
-The **Eutrophication Workbench (EWB)** is a Blue‑Cloud Virtual Lab supporting the creation of **harmonised, quality‑controlled Essential Ocean Variable (EOV) data collections** for eutrophication assessment.
+The **Eutrophication Workbench (EWB)** workspace provides a self-contained workflow for generating harmonised Essential Ocean Variable (EOV) datasets, running duplicate detection, and converting results for webODV exploration.
 
-This guide describes the **standard EWB workflow** using **BEACON**, **CW Duplicate Tool**, **FileForge**, and **webODV**.
+This repository contains the current EWB workflow components used in the Blue-Cloud VLab:
+- `Public/user_workflow/v2.0.0/` — latest workflow setup notebook
+- `Public/Beacon_queries/Merged_notebooks/latest/` — latest BEACON query notebook version
+- `Public/FileForge_config/conf/latest/` — latest FileForge configuration templates
+- `Datasets/Global/v1.0.0/` — current global dataset package
+
+---
+
+## Current Recommended Versions
+
+- Workflow starter notebook: `Public/user_workflow/v2.0.0/0_Start_Here_RUNME.ipynb`
+- Latest merged BEACON query notebook: `Public/Beacon_queries/Merged_notebooks/latest/01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-TS-PR_VAR=allEOV_OUT=parquet_v2.1.0.ipynb`
+- Stable merged BEACON query notebook: `Public/Beacon_queries/Merged_notebooks/01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-FeatureType_VAR=allEOV_OUT=parquet.ipynb`
+- Latest FileForge configuration templates: `Public/FileForge_config/conf/latest/`
+- Current dataset release: `Datasets/Global/v1.0.0/`
 
 ---
 
 ## Workflow Overview
 
-Each step runs in a **dedicated execution environment**.
+The workspace is organised into separate execution stages for reproducibility:
+- `Public/Beacon_queries/` — BEACON data access and query notebooks
+- `Public/user_workflow/` — setup and workflow automation notebooks
+- `Public/FileForge_config/` — cleanup and conversion configuration files
+- `Public/Beacon_queries/Monolith_notebooks/` — monolithic BEACON query notebooks for individual BDIs
 
 ---
 
-## Step 0 – Setup Folder Architecture (JupyterLab)
+## Step 0 – Setup the Workflow Folder Structure
 
 **Environment:** JupyterLab  
-**Purpose:** Create the complete folder structure and configuration files for the workflow.
+**Purpose:** Create the project folder structure and generate the necessary configuration files.
 
 1. Open **JupyterLab** in the EWB VLab.
-2. Navigate to your home workspace: `/home/jovyan/workspace/VREFolders/Eutrophication-Workbench/user_workflow/`
-3. Create a **copy** of the folder: `../user_workflow/0_Start_Here_RUNME.ipynb` in your `/home/jovyan/workspace/`
-4. Open and run the notebook in your copied folder.
-5. When prompted, enter:
-   - Your initials (user identifier)
-   - Start year and month (YYYYMM format)
-   - End year and month (YYYYMM format)
-   - Depth range from (metres)
-   - Depth range to (metres)
+2. Navigate to `Public/user_workflow/v2.0.0/`
+3. Open and run `0_Start_Here_RUNME.ipynb`.
+4. Provide the requested values when prompted:
+   - user identifier / initials
+   - start year and month (YYYYMM)
+   - end year and month (YYYYMM)
+   - minimum and maximum depth ranges (metres)
 
-### Output
+### Result
 
-The notebook automatically creates:
-- `1_DatalakeQuery/`: For BEACON queries
-- `2_CWduplicates-tool/`: Configuration for duplicate removal
-- `3_FileForge/`: FileForge configurations and outputs
-- `cw_user_config.yaml`: Pre-configured CW Duplicate Tool settings
+The notebook creates the local workflow folders and supporting configuration files, including:
+- `1_DatalakeQuery/`
+- `2_CWduplicates-tool/`
+- `3_FileForge/`
+- `cw_user_config.yaml`
 
-> **Note:** This step must be executed **before** running the subsequent workflow steps.
+> **Important:** Step 0 must be run before the BEACON query and CW/FileForge steps.
 
 ---
 
-## Step 1 – Access & Harmonise Data with BEACON (JupyterLab)
+## Step 1 – Access & Harmonise Data with BEACON
 
 **Environment:** JupyterLab  
-**Purpose:** Access, subset, merge, and harmonise EOV data from multiple Blue Data Infrastructures.
+**Purpose:** Query the merged BEACON instance and export harmonised EOV datasets.
 
-1. Open **JupyterLab** in the EWB VLab.
-2. Navigate to: `1_DatalakeQuery/Merged_notebooks/`
-3. Open and run: `01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-FeatureType_VAR=allEOV_OUT=parquet.ipynb`
-4. Set your **Blue‑Cloud token** when prompted  
-(Top panel → *How‑to* → *Authorization‑How‑to*).
+1. Open `Public/Beacon_queries/Merged_notebooks/latest/01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-TS-PR_VAR=allEOV_OUT=parquet_v2.1.0.ipynb`.
+2. If needed, use the stable notebook at `Public/Beacon_queries/Merged_notebooks/01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-FeatureType_VAR=allEOV_OUT=parquet.ipynb`.
+3. Set your **D4Science / Blue-Cloud token** and configure the query options.
+4. Run the notebook to generate Parquet outputs.
 
 ### Output
 
-Harmonised EOV datasets are written in **Parquet format** to:
-`1_DatalakeQuery/outputs/`
-
-These files are **ready to be used as input for duplicate detection**.
+Harmonised Parquet files are produced for downstream duplicate detection and are typically saved to the notebook's output folder.
 
 ---
 
-## Step 2 – Detect Duplicates with CW (CCP)
+## Step 2 – Detect Duplicates with CW
 
 **Environment:** Cloud Computing Platform (CCP)  
-**Purpose:** Detect and classify duplicates across BDIs.
+**Purpose:** Run the CW Duplicate Tool to identify duplicate records across BDIs.
 
-1. Open the **CCP** tab.
-2. Launch the **CW Duplicate Tool**.
-3. Select the CW configuration generated in **Step 0**: `cw_user_config.yaml`
-4. Run the tool.
+1. Launch the **CW Duplicate Tool** in CCP.
+2. Use the generated CW configuration file from Step 0: `cw_user_config.yaml`.
+3. Run the duplicate detection process.
 
 ### Output
 
-CW results are written to:
-`2_CWduplicates-tool/outputs/`
+Duplicate detection results are written to:
+- `2_CWduplicates-tool/outputs/`
 
-## Step 3 – Remove Duplicates & Convert to ODV with FileForge (CCP)
+---
+
+## Step 3 – Remove Duplicates & Convert with FileForge
 
 **Environment:** Cloud Computing Platform (CCP)  
-**Purpose:** Apply CW decisions and convert datasets to ODV format.
+**Purpose:** Apply CW decisions and convert harmonised data into ODV / text outputs.
 
-1. In the **CCP**, launch **FileForge**.
-2. Select:
-   - CW outputs from Step 2
-   - A suitable FileForge YAML configuration from `3_FileForge/Configuration_files/`
-3. Run FileForge.
+1. Launch **FileForge** in CCP.
+2. Select CW outputs from Step 2.
+3. Select FileForge configuration files from `Public/FileForge_config/conf/latest/` or the versioned configs under `Public/FileForge_config/conf/v2.0.0/`.
+4. Run FileForge.
 
 ### Output
 
-ODV‑compatible files are written to a CCP execution directory, for example:
+Converted outputs are written to the CCP execution output folder, for example:
 ```
-/Workspace/CCP/executions/FileForge_v._0.1.9/.../outputs/output/
+/Workspace/CCP/executions/.../outputs/output/
 └── wb2_merged.txt
 ```
 
 ---
 
-## Step 4 – Explore & Validate Data with webODV
+## Step 4 – Explore & Validate with webODV
 
-**Environment:** webODV (web application)
+**Environment:** webODV  
+**Purpose:** Visualise and quality-control the ODV outputs.
 
 1. Open **webODV** from the EWB interface.
 2. Load the ODV file produced by FileForge.
-3. Use webODV to:
-   - Visualise
-   - Perform interactive quality control
-   - Extract subsets for analysis
+3. Use the tool to:
+   - visualise profiles and time series
+   - perform QC checks
+   - export subsets for analysis
 
 ---
 
-## Eutrophication workbench Vlab Folder Structure and Roles
+## Workspace Folder Structure
+
 ```
-/Eutrophication-Workbench/
-├── 0_Documentation/ # User guides and technical documentation
-├── 1_BEACON/ # BEACON notebooks and outputs (JupyterLab)
-├── 2_CWduplicates-tool/ # Duplicate detection (CCP)
-├── 3_FileForge/ # Duplicate removal & ODV conversion (CCP)
-├── 4_webODV/ # webODV collections
-├── 0_Start_Here_RUNME.ipynb # Initial setup notebook
-└── README.md
+Eutrophication_Workbench_workspace/
+├── Datasets/
+│   └── Global/
+│       └── v1.0.0/
+├── Documentation/
+├── Private/
+└── Public/
+    ├── Beacon_queries/
+    │   ├── Merged_notebooks/
+    │   │   ├── latest/
+    │   │   └── *.ipynb
+    │   └── Monolith_notebooks/
+    ├── FileForge_config/
+    │   └── conf/
+    │       ├── latest/
+    │       ├── v1.0.0/
+    │       └── v2.0.0/
+    └── user_workflow/
+        ├── v1.0.0/
+        └── v2.0.0/
 ```
 
-| Folder | Role | Environment |
-|------|-----|-------------|
-| `1_DatalakeQuery` | Data access & harmonisation | JupyterLab |
-| `2_CWduplicates-tool` | Duplicate detection | CCP |
-| `3_FileForge` | Cleaning & format conversion | CCP |
-| `4_webODV` | Exploration & QC | webODV |
+| Folder | Role |
+|---|---|
+| `Public/Beacon_queries/` | BEACON query notebooks and exports |
+| `Public/FileForge_config/conf/` | FileForge configuration templates |
+| `Public/user_workflow/` | Workflow starter notebooks and setup automation |
+| `Datasets/Global/v1.0.0/` | Current global dataset release |
+| `Documentation/` | User and technical guides |
 
 ---
 
-## Important Notes
+## Latest Versions Used in This Workflow
 
-- ⚠️ The EWB workflow is **hybrid**:
-  - Not all steps are automated
-  - Some steps require **user decisions**
-- Execution environments are **intentionally separated** to ensure:
-  - Transparency
-  - Reproducibility
-  - Scientific control
-- **Always run Step 0 first** to create the necessary folder structure and configuration files before proceeding with subsequent steps.
+- `Public/user_workflow/v2.0.0/0_Start_Here_RUNME.ipynb`
+- `Public/Beacon_queries/Merged_notebooks/latest/01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-TS-PR_VAR=allEOV_OUT=parquet_v2.1.0.ipynb`
+- `Public/FileForge_config/conf/latest/` and `Public/FileForge_config/conf/v2.0.0/`
+- `Datasets/Global/v1.0.0/`
 
 ---
 
-## FAIR & Policy Alignment
+## Notes
 
-The Eutrophication Workbench follows **FAIR data principles** and supports:
-- EU Marine Strategy Framework Directive (MSFD)
-- UN Sustainable Development Goal 14
-- EU Mission Ocean & Water
+- The latest BEACON query notebook is based on the merged BEACON instance version `v1.5.4`.
+- The workflow starter notebook `v2.0.0` is the current recommended entry point.
+- Use `Public/FileForge_config/conf/latest/` for the newest FileForge settings, or fall back to versioned config directories when needed.
 
 ---
 
 ## Documentation & Support
 
-For detailed instructions and background:
-- See the contents of `0_Documentation/`
-- Consult the tool‑specific guides for BEACON, CW, FileForge, and webODV
+For additional instructions and reference materials:
+- Browse `Documentation/`
+- Use the README files in `Public/Beacon_queries/`, `Public/FileForge_config/`, and `Public/user_workflow/`
 
 ---
 
 ## Citation & Acknowledgement
 
-If you use EWB datasets in publications or reports, please acknowledge:
+Please acknowledge:
 - **Blue‑Cloud**
-- The contributing Blue Data Infrastructures (Copernicus Marine, EMODnet Chemistry, World Ocean Database)
-- The Eutrophication Workbench Vlab
+- Contributing BDIs: Copernicus Marine, EMODnet Chemistry, World Ocean Database
+- The Eutrophication Workbench VLab
