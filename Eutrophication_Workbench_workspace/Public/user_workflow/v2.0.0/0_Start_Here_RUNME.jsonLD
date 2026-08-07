@@ -1,0 +1,56 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "type": "SoftwareSourceCode",
+    "applicationCategory": "Marine Biogeochemistry",
+    "author": [
+        {
+            "id": "https://www.orcid.org/0000-0002-3906-471X",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "NODC, OGS Istituto Nazionale di Oceanografia e di Geofisica Sperimentale"
+            },
+            "email": "nreyessuarez@ogs.it",
+            "familyName": "Reyes Suarez",
+            "givenName": "Nydia Catalina"
+        }
+    ],
+    "codeRepository": "https://github.com/nodc-it/Blue-Cloud2026.git",
+    "dateCreated": "2026-04-30",
+    "dateModified": "2026-08-07",
+    "datePublished": "2026-04-30",
+    "description": "Initialization and setup notebook for the Eutrophication Workbench (EWB) workflow in JupyterLab. It configures a user's local workspace by copying template query notebooks and configuration files from the shared Public/ directory into /home/jovyan/workspace/<myfolder>. Upon execution, it prompts the user for run parameters—including user initials, temporal bounds (YYYYMM), and depth ranges (meters)—and automatically builds the required local folder structure (1_DatalakeQuery/, 2_CWduplicates-tool/, 3_FileForge/). This notebook serves as the mandatory prerequisite step before running BEACON query workflows or duplicate processing tools.",
+    "downloadUrl": "https://data.d4science.net/7DZS5",
+    "funder": {
+        "type": "Organization",
+        "name": "HORIZON-RIA "
+    },
+    "identifier": "https://zenodo.org/records/19923943",
+    "isPartOf": "https://blue-cloud.d4science.org/web/eutrophication-workbench",
+    "keywords": [
+        "Blue Cloud",
+        "D4Science",
+        "EWB",
+        "Eutrophication workbench",
+        "Folder tree structure",
+        "Jupyter Notebook",
+        "VRE",
+        "configuration",
+        "master notebook",
+        "user workflow",
+        "workflow"
+    ],
+    "license": "https://spdx.org/licenses/CC-BY-SA-4.0",
+    "name": " 0_Start_Here_RUNME.ipynb",
+    "operatingSystem": "Linux",
+    "programmingLanguage": "Python",
+    "relatedLink": "https://data.d4science.org/ctlg/Eutrophication-Workbench/jupyter_notebook_-_eutrophication_workbench_master_setup_user_workflow",
+    "runtimePlatform": "JupyterLab in D4Science",
+    "softwareRequirements": "https://blue-cloud.d4science.org/web/eutrophication-workbench",
+    "version": "2.0.0",
+    "funding": "https://doi.org/10.3030/101094227",
+    "codemeta:isSourceCodeOf": {
+        "id": "Eutrophication workbench VLab workflow"
+    },
+    "issueTracker": "https://github.com/nodc-it/Blue-Cloud2026/issues"
+}
