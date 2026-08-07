@@ -1,0 +1,102 @@
+{
+  "title": "Eutrophication Workbench Virtual Laboratory (EWB VLab)",
+  "description": "Machine-readable metadata describing the Eutrophication Workbench workflow, recommended versions, folder layout, and execution steps.",
+  "workspace_path": "Eutrophication_Workbench_workspace",
+  "folders": {
+    "Datasets": "Datasets/Global/v1.0.0/",
+    "Documentation": "Documentation/",
+    "Private": "Private/",
+    "Public": {
+      "Beacon_queries": {
+        "Merged_notebooks": "Public/Beacon_queries/Merged_notebooks/",
+        "Monolith_notebooks": "Public/Beacon_queries/Monolith_notebooks/"
+      },
+      "FileForge_config": "Public/FileForge_config/conf/",
+      "user_workflow": "Public/user_workflow/"
+    }
+  },
+  "recommended_versions": {
+    "workflow_starter": "Public/user_workflow/latest/0_Start_Here_RUNME.ipynb",
+    "latest_beacon_merged_query": "Public/Beacon_queries/Merged_notebooks/latest/01_EWB_BEACON=merged-v1.5.4_FILTER=BDI-TS-PR_VAR=allEOV_OUT=parquet_v2.1.0.ipynb",
+    "fileforge_configs": "Public/FileForge_config/conf/latest/",
+    "dataset_release": "Datasets/Global/v1.0.0/"
+  },
+  "steps": [
+    {
+      "id": 0,
+      "title": "Setup the Workflow Folder Structure",
+      "environment": "JupyterLab",
+      "purpose": "Create local workflow folder structure and copy query notebooks and configuration files from Public/",
+      "actions": [
+        "Open Public/user_workflow/latest/0_Start_Here_RUNME.ipynb",
+        "Copy and run the notebook in /home/jovyan/workspace/<myfolder>",
+        "Provide user identifier, time range, and depth range when prompted"
+      ],
+      "outputs": ["1_DatalakeQuery/", "2_CWduplicates-tool/", "3_FileForge/"]
+    },
+    {
+      "id": 1,
+      "title": "Access & Harmonise Data with BEACON",
+      "environment": "JupyterLab",
+      "purpose": "Query the merged BEACON instance and export harmonised EOV datasets",
+      "actions": [
+        "Open 1_DatalakeQuery/Merged_notebooks/01_EWB_BEACON=merged-v1.5.4...ipynb",
+        "Set D4Science / Blue-Cloud token",
+        "Run the notebook to generate Parquet outputs"
+      ],
+      "outputs": ["Parquet files saved to 1_DatalakeQuery/Merged_notebooks/outputs/"]
+    },
+    {
+      "id": 2,
+      "title": "Detect Duplicates with CW",
+      "environment": "Cloud Computing Platform (CCP)",
+      "purpose": "Run the CWdt Duplicate Tool to identify duplicate records across BDIs",
+      "actions": [
+        "Launch CW Duplicate Tool in CCP",
+        "Use cw_user_config.yaml generated in Step 0",
+        "Run duplicate detection"
+      ],
+      "outputs": ["2_CWduplicates-tool/outputs/"]
+    },
+    {
+      "id": 3,
+      "title": "Remove or Annotate Duplicates and Convert with FileForge",
+      "environment": "Cloud Computing Platform (CCP)",
+      "purpose": "Apply CWdt decisions and convert outputs to ODV or other formats",
+      "actions": [
+        "Launch FileForge in CCP",
+        "Select CW outputs and a FileForge YAML config from 3_FileForge/Configuration_files/",
+        "Run FileForge"
+      ],
+      "outputs": ["3_FileForge/output/"]
+    },
+    {
+      "id": 4,
+      "title": "Explore & Validate (optional)",
+      "environment": "webODV",
+      "purpose": "Visualise and quality-control ODV outputs",
+      "precondition": "FileForge must be run with an ODV configuration (wb2_odv_config.yaml)",
+      "actions": ["Import .txt produced by FileForge into webODV", "Visualise, QC, and export subsets"],
+      "outputs": ["webODV collections"]
+    }
+  ],
+  "notes": [
+    "Latest BEACON merged instance version used: v1.5.4",
+    "Workflow starter notebook recommended version: v2.0.0 (exposed as latest)",
+    "Use Public/FileForge_config/conf/latest/ for newest FileForge settings or fall back to versioned configs"
+  ],
+  "documentation_links": [
+    "Documentation/",
+    "https://data.d4science.org/ctlg/Eutrophication-Workbench/eutrophication_workbench_users_handbook",
+    "https://doi.org/10.5281/zenodo.20040219"
+  ],
+  "citation": {
+    "authors": ["Reyes Suarez Nydia Catalina", "Robin Kooyman", "Gwenaëlle Moncoiffé", "Alessandra Giorgetti", "Virginie Racapé", "Maxence Couppey", "Julie Gatti", "Athanasia (Sissy) Iona", "Karin Wesslander"],
+    "year": 2026,
+    "title": "Eutrophication Workbench VLab",
+    "version": "2",
+    "doi": "https://doi.org/10.5281/zenodo.20040219"
+  },
+  "generated_at": "2026-08-07T12:00:00Z",
+  "source_readme": "README.md"
+}
